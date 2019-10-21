@@ -1,22 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
 <title>Ghibli Curious</title>
-
+<link rel="stylesheet" href="style.css" />
 </head>
-<body>
-<body class ="studios_ghibli">
-<img id = "tittleStudiosGHibli" src="https://upload.wikimedia.org/wikipedia/en/c/ca/Studio_Ghibli_logo.svg">
-<p>Studio Ghibli (スタジオジブリ <br>
-    es un estudio japonés de <br>
-    animación, considerado <br>
-    por la crítica especializada y <br>
-    muchos cinéfilos como uno de <br>
-    los mejores estudios de <br>
-    animación del mundo en <br>
-    la actualidad <br>
-</p>
-</body>
+<body class="inicio" onload="loadMovies()"> 
+    <aside class="introduccion">
+        <div id="intruduccion_studyGhibli"></div>
+        <img id = "tittleStudiosGhibli" src="https://upload.wikimedia.org/wikipedia/en/c/ca/Studio_Ghibli_logo.svg">
+        <p>Studio Ghibli <br>
+                (スタジオジブリ) <br>
+               Bienvenid@s a la pagina <br>
+               que te permitirá saber <br>
+               los valores del mundo de Ghibli. <br>
+               Ghibli es un estudio japonés de <br>
+                animación, considerado <br>
+                por la crítica especializada y <br>
+                muchos cinéfilos como uno de <br>
+                los mejores estudios de <br>
+                animación del mundo en <br>
+                la actualidad. <br>
+        </p> 
+        
+        <!-- <img src="" id="poster" alt=""> -->
+    </aside>
+    <div id="datos_ghibli"></div>
 
+</body>
+<!-- <script type="module" src="main.js"></script> -->
+<script>
+        function showData(myJson) {
+            let title = `<h1>${myJson.Title}</h1>`;
+            let time =  `<h1>${myJson.Runtime}</h1>`;
+            let director = `<h1>${myJson.Director}</h1>`;
+            let etica = " <strong> Solidaridad </strong>" 
+            let etica2 = " <strong> Hermandad </strong>"
+            document.getElementById("datos_ghibli").innerHTML = title + time + director + etica + etica2;
+            /*document.getElementById("datos_ghibli").innerHTML = title;
+            document.getElementById("datos_ghibli").innerHTML = time;
+            document.getElementById("datos_ghibli").innerHTML = director;*/
+            let poster = myJson.Poster;
+            //document.getElementById("poster").src = poster;
+            let i = document.createElement('img');
+
+            i.setAttribute("id", "poster");
+            i.setAttribute("src", poster); 
+            document.body.appendChild(i);
+  
+
+        }
+           
+        function bringData(movieURL) {
+           //fetch("https://www.omdbapi.com/?t=Spirited+Away&apikey=5a71d114")
+           fetch(movieURL)
+            .then(function(response){
+              return response.json();
+            })
+            .then(function(myJson){
+              showData(myJson)
+              console.log(myJson);
+            });
+        }
+        function loadMovies(){
+            let movies = [ "http://www.omdbapi.com/?t=grave+of+the+fireflies&apikey=5a71d114", 
+            "http://www.omdbapi.com/?t=princess+mononoke&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=the+secret+world+of+arrietty&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=the+tale+of+the+princess+kaguya&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=pom+poko&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=my+neighbor+totoro&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=the+wind+rises&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=ponyo&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=my+neighbors+the+yamadas&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=porco+rosso&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=howl%27s+moving+castle&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=castle+in+the+sky&apikey=5a71d114",
+            "http://www.omdbapi.com/?t=from+up+on+poppy+hill&apikey=5a71d114",
+
+            ] 
+            movies.forEach(bringData);
+
+
+        }
+</script>
+<script type="module" src="http://www.omdbapi.com/"></script>
 </html>
+
+
